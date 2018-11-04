@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DefineActivity">
+
+    <CheckBox
+        android:id="@+id/checkBox_euler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/draw_by_euler_method" />
+
+    <CheckBox
+        android:id="@+id/checkBox_euler_plus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/checkBox_euler"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/draw_by_improved_euler_method" />
+
+    <CheckBox
+        android:id="@+id/checkBox_runge_kutta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBox_euler_plus"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/draw_by_runge_kutta_method" />
+
+    <TextView
+        android:id="@+id/variant_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="180dp"
+        android:background="#DDDDDD"
+        android:textSize="12pt"
+        android:text="@string/actual_variant" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="141dp"
+        android:text="@string/choose_your_variant"
+        android:textColor="#222222"
+        android:textSize="12pt" />
+
+    <LinearLayout
+        android:id="@+id/textview_inputs"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="205dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="@string/input_x0"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:text="@string/input_y0_ivp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="@string/input_x"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:text="@string/input_step_amount"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/edittext_inputs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="161dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText_x0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="@string/zero_zero"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editText_ivp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="@string/one_zero"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editText_x1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="@string/three_zero"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editText_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_weight="1"
+            android:hint="@string/three_thousands"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonDrawSolutions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/plot_solutions" />
+
+        <Button
+            android:id="@+id/buttonDrawErrors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/plot_errors"/>
+
+        <Button
+            android:id="@+id/buttonDrawGlobalErrors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/plot_global_errors"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

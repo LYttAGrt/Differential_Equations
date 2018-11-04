@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">DE_Nums_v2</string>
+    <string name="plot_solutions">Plot solutions!</string>
+    <string name="plot_errors">Plot errors!</string>
+    <string name="draw_by_euler_method">Draw by Euler method</string>
+    <string name="draw_by_improved_euler_method">Draw by improved Euler method</string>
+    <string name="draw_by_runge_kutta_method">Draw by Runge-Kutta method</string>
+    <string name="choose_your_variant">Choose your variant:</string>
+    <string name="input_x0">Input x0</string>
+    <string name="input_y0_ivp">Input y0 (IVP)</string>
+    <string name="input_x">Input X</string>
+    <string name="zero_zero">0.0</string>
+    <string name="one_zero">1.0</string>
+    <string name="three_zero">3.0</string>
+    <string name="three_thousands">3000</string>
+    <string name="input_step_amount">Input step amount</string>
+    <string name="actual_variant">2yx + 5 - x^2</string>
+    <string name="plot_global_errors">Plot global errors!</string>
+    <string-array name="diff_eqs">
+        <item>01 : - y - x</item>
+        <item>02 : - 2y + 4x</item>
+        <item>03 : - </item>
+        <item>04 : - </item>
+        <item>05 : - </item>
+        <item>06 : - </item>
+        <item>07 : - </item>
+        <item>08 : - </item>
+        <item>09 : y/x + x/y</item>
+        <item>10 : - </item>
+        <item>11 : e^(-sin x) - y cos x</item>
+        <item>12 : xy^2 + 3xy</item>
+        <item>13 : - </item>
+        <item>14 : - </item>
+        <item>15 : - </item>
+        <item>16: 2yx + 5 - x^2</item>
+    </string-array>
+</resources>
