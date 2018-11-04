@@ -61,12 +61,15 @@ public class GlobalErrorsActivity extends AppCompatActivity {
         double constant = methods.get_constant_from_ivp_problem(x0, y0);
         error_values = methods.calculate_exact_solution(x0, x1, step_number, constant);
         euler_array = new DataPoint[error_values.size()];
+        for (int i = 0; i < euler_array.length; i++) euler_array[i] = new DataPoint(i, 0);
         impr_euler_array = new DataPoint[error_values.size()];
+        for (int i = 0; i < impr_euler_array.length; i++) impr_euler_array[i] = new DataPoint(i, 0);
         runge_kutta_array = new DataPoint[error_values.size()];
-        // Big loop
+        for (int i = 0; i < runge_kutta_array.length; i++) runge_kutta_array[i] = new DataPoint(i, 0);
+        // Big loop, starting from 1 because there's no sense in 0 steps
         int counter = 0;
         double actual_value;
-        for (double i = .0; i < step_number; i += 1.0){
+        for (double i = 1.0; i < step_number; i += 1.0){
             // Get exact values of exact solution
             constant = methods.get_constant_from_ivp_problem(x0, y0);
             exact_values = methods.calculate_exact_solution(x0, x1, i, constant);
@@ -74,34 +77,28 @@ public class GlobalErrorsActivity extends AppCompatActivity {
             // Get exact values of approximating method, then - get its error arrayList, then - add new DataPoint to its array
             if (euler_bool.equals("T")) {
                 approximated_euler_values = methods.approximate_by_euler_method(x0, x1, step_number, y0);
-                if(approximated_euler_values.size() > 0){
-                    error_values.clear();
-                    error_values = methods.get_difference(approximated_euler_values, exact_values);
-                    actual_value = get_max_value(error_values);
-                    euler_array[counter] = new DataPoint(i, actual_value);
-                }
+                error_values.clear();
+                error_values = methods.get_difference(approximated_euler_values, exact_values);
+                actual_value = get_max_value(error_values);
+                euler_array[counter] = new DataPoint(i, actual_value);
             } else approximated_euler_values = new ArrayList<>(0);
 
             // Get exact values of approximating method, then - get its error arrayList, then - add new DataPoint to its array
             if (eulerPlus_bool.equals("T")) {
                 approximated_improved_euler_values = methods.approximate_by_improved_euler_method(x0, x1, step_number, y0);
-                if (approximated_improved_euler_values.size() > 0) {
-                    error_values.clear();
-                    error_values = methods.get_difference(approximated_improved_euler_values, exact_values);
-                    actual_value = get_max_value(error_values);
-                    impr_euler_array[counter] = new DataPoint(i, actual_value);
-                }
+                error_values.clear();
+                error_values = methods.get_difference(approximated_improved_euler_values, exact_values);
+                actual_value = get_max_value(error_values);
+                impr_euler_array[counter] = new DataPoint(i, actual_value);
             } else approximated_improved_euler_values = new ArrayList<>(0);
 
             // Get exact values of approximating method, then - get its error arrayList, then - add new DataPoint to its array
             if (rungeKutta_bool.equals("T")) {
                 approximated_runge_kutta_values = methods.approximate_by_runge_kutta_method(x0, x1, step_number, y0);
-                if(approximated_runge_kutta_values.size() > 0) {
-                    error_values.clear();
-                    error_values = methods.get_difference(approximated_runge_kutta_values, exact_values);
-                    actual_value = get_max_value(error_values);
-                    runge_kutta_array[counter] = new DataPoint(i, actual_value);
-                }
+                error_values.clear();
+                error_values = methods.get_difference(approximated_runge_kutta_values, exact_values);
+                actual_value = get_max_value(error_values);
+                runge_kutta_array[counter] = new DataPoint(i, actual_value);
             } else approximated_runge_kutta_values = new ArrayList<>(0);
 
             counter += 1;

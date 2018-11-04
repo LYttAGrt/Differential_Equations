@@ -29,10 +29,8 @@ public class DefineActivity extends AppCompatActivity {
         y0_editText = findViewById(R.id.editText_ivp);
         X_editText = findViewById(R.id.editText_x1);
         step_editText = findViewById(R.id.editText_step);
-        btnPlotSolutions = findViewById(R.id.buttonDrawSolutions);
-        btnPlotErrors = findViewById(R.id.buttonDrawErrors);
-        btnPlotGlobalErrors = findViewById(R.id.buttonDrawGlobalErrors);
 
+        btnPlotSolutions = findViewById(R.id.buttonDrawSolutions);
         btnPlotSolutions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,9 +46,7 @@ public class DefineActivity extends AppCompatActivity {
                     y0 = Double.parseDouble(y0_editText.getText().toString());
                     x1 = Double.parseDouble(X_editText.getText().toString());
                     step_amount = Integer.parseInt(step_editText.getText().toString());
-                    if(step_amount < 1){
-                        step_amount = 1;
-                    }
+                    if(step_amount < 1) step_amount = 1;
 
                     // Standby to send the message
                     Intent intent = new Intent(DefineActivity.this, ApproximationsActivity.class)
@@ -70,6 +66,7 @@ public class DefineActivity extends AppCompatActivity {
             }
         });
 
+        btnPlotErrors = findViewById(R.id.buttonDrawErrors);
         btnPlotErrors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +82,7 @@ public class DefineActivity extends AppCompatActivity {
                     y0 = Double.parseDouble(y0_editText.getText().toString());
                     x1 = Double.parseDouble(X_editText.getText().toString());
                     step_amount = Integer.parseInt(step_editText.getText().toString());
-                    if(step_amount < 1){
-                        step_amount = 1;
-                    }
+                    if(step_amount < 1) step_amount = 1;
 
                     // Standby to send the message
                     Intent intent = new Intent(DefineActivity.this, ErrorsActivity.class)
@@ -107,12 +102,16 @@ public class DefineActivity extends AppCompatActivity {
             }
         });
 
+        btnPlotGlobalErrors = findViewById(R.id.buttonDrawGlobalErrors);
         btnPlotGlobalErrors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 needDrawEuler = (euler_cb.isChecked()) ? "T" : "F";
                 needDrawEulerPlus = (euler_plus_cb.isChecked()) ? "T" : "F";
                 needDrawRungeKutta = (runge_kutta_cb.isChecked()) ? "T" : "F";
+
+                // Send a warning
+                Toast.makeText(getApplicationContext(), "Calculating...", Toast.LENGTH_SHORT).show();
 
                 // Try to get values from EditTexts
                 double x0, y0, x1;
@@ -122,9 +121,7 @@ public class DefineActivity extends AppCompatActivity {
                     y0 = Double.parseDouble(y0_editText.getText().toString());
                     x1 = Double.parseDouble(X_editText.getText().toString());
                     step_amount = Integer.parseInt(step_editText.getText().toString());
-                    if(step_amount < 1){
-                        step_amount = 1;
-                    }
+                    if(step_amount < 1) step_amount = 1;
 
                     // Standby to send the message
                     Intent intent = new Intent(DefineActivity.this, GlobalErrorsActivity.class)
