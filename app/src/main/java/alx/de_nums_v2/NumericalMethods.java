@@ -105,15 +105,32 @@ class NumericalMethods {
         doubles.add(x);
         doubles.add(u);
 
-        // loop till the asymptote or interval end
-        for (double i = 0.0; i < step_amount; i += 1.0) {
-            u += h * diff_equation_function(x, u);
-            x += h;
-            if (x.isNaN() || u.isNaN()) {
+        double i = 0.0;
+        while(i < step_amount){
+            // loop till the asymptote or interval end
+            for (; i < step_amount; i += 1.0) {
+                u += h * diff_equation_function(x, u);
+                x += h;
+                if (x.isNaN() || u.isNaN()) {
+                    break;
+                } else {
+                    doubles.add(x);
+                    doubles.add(u);
+                }
+            }
+
+            // either it has found asymptote or it's finished
+            if(i == step_amount){
                 break;
             } else {
-                doubles.add(x);
-                doubles.add(u);
+                double c = get_constant_from_ivp_problem(x_lower_bound, y_ivp_value);
+                for (; i < step_amount; i += 1.0){
+                    x += h;
+                    u = exact_solution_function(x, c);
+                    if (!x.isNaN() && !u.isNaN()){
+                        break;
+                    }
+                }
             }
         }
         return doubles;
