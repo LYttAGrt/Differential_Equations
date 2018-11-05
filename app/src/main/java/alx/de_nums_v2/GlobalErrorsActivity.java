@@ -29,7 +29,6 @@ public class GlobalErrorsActivity extends AppCompatActivity {
 
         // Find all GUI units
         errorsView = findViewById(R.id.global_error_graphView);
-        ArrayList<Double> error_values;
         methods = new NumericalMethods();
 
         // All right. Read all input via Intent
@@ -52,31 +51,21 @@ public class GlobalErrorsActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        // Create DataPoint arrays
-        double constant = methods.get_constant_from_ivp_problem(x0, y0);
-        error_values = methods.calculate_exact_solution(x0, x1, step_number, constant);
-        euler_array = new DataPoint[error_values.size()];
-        for (int i = 0; i < euler_array.length; i++) euler_array[i] = new DataPoint(i, 0);
-        improved_euler_array = new DataPoint[error_values.size()];
-        for (int i = 0; i < improved_euler_array.length; i++) improved_euler_array[i] = new DataPoint(i, 0);
-        runge_kutta_array = new DataPoint[error_values.size()];
-        for (int i = 0; i < runge_kutta_array.length; i++) runge_kutta_array[i] = new DataPoint(i, 0);
-
         // Build lines for graphView
         if (euler_bool.equals("T")) {
-            euler_array = create_dataPoints_for_euler_method(x0, x1, constant, y0);
+            euler_array = create_dataPoints_for_euler_method(x0, x1, step_number, y0);
             euler_line = create_line_series(euler_array, Color.BLUE, "Euler method");
             errorsView.addSeries(euler_line);
         }
 
         if (eulerPlus_bool.equals("T")) {
-            improved_euler_array = create_dataPoints_for_improved_euler_method(x0, x1, constant, y0);
+            improved_euler_array = create_dataPoints_for_improved_euler_method(x0, x1, step_number, y0);
             improved_euler_line = create_line_series(improved_euler_array, Color.GREEN, "Improved Euler method");
             errorsView.addSeries(improved_euler_line);
         }
 
         if (rungeKutta_bool.equals("T")) {
-            runge_kutta_array = create_dataPoints_for_runge_kutta_method(x0, x1, constant, y0);
+            runge_kutta_array = create_dataPoints_for_runge_kutta_method(x0, x1, step_number, y0);
             runge_kutta_line = create_line_series(runge_kutta_array, Color.RED, "Runge-Kutta method");
             errorsView.addSeries(runge_kutta_line);
         }
@@ -100,7 +89,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
     }
 
     // Local service method
-    private double get_max_value(ArrayList<Double> doubles){
+    private double get_sum_of_list(ArrayList<Double> doubles){
         double result = .0;
         for (int i = 0; i < doubles.size(); i+=2)
             result += doubles.get(i+1);
@@ -116,6 +105,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
         double constant = methods.get_constant_from_ivp_problem(x0, y0);
         exact_values = methods.calculate_exact_solution(x0, x1, step_number, constant);
         DataPoint[] result = new DataPoint[exact_values.size() / 2];
+        exact_values.clear();
 
         int counter = 0;
         for (double i = 1.0; i < step_number; i += 1.0) {
@@ -124,7 +114,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
             approximated_values = methods.approximate_by_euler_method(x0, x1, step_number, y0);
 
             error_values = methods.get_difference(approximated_values, exact_values);
-            actual_value = get_max_value(error_values);
+            actual_value = get_sum_of_list(error_values);
             result[counter] = new DataPoint(i, actual_value);
 
             approximated_values.clear();
@@ -144,6 +134,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
         double constant = methods.get_constant_from_ivp_problem(x0, y0);
         exact_values = methods.calculate_exact_solution(x0, x1, step_number, constant);
         DataPoint[] result = new DataPoint[exact_values.size() / 2];
+        exact_values.clear();
 
         int counter = 0;
         for (double i = 1.0; i < step_number; i += 1.0) {
@@ -152,7 +143,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
             approximated_values = methods.approximate_by_improved_euler_method(x0, x1, step_number, y0);
 
             error_values = methods.get_difference(approximated_values, exact_values);
-            actual_value = get_max_value(error_values);
+            actual_value = get_sum_of_list(error_values);
             result[counter] = new DataPoint(i, actual_value);
 
             approximated_values.clear();
@@ -172,6 +163,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
         double constant = methods.get_constant_from_ivp_problem(x0, y0);
         exact_values = methods.calculate_exact_solution(x0, x1, step_number, constant);
         DataPoint[] result = new DataPoint[exact_values.size() / 2];
+        exact_values.clear();
 
         int counter = 0;
         for (double i = 1.0; i < step_number; i += 1.0) {
@@ -180,7 +172,7 @@ public class GlobalErrorsActivity extends AppCompatActivity {
             approximated_values = methods.approximate_by_runge_kutta_method(x0, x1, step_number, y0);
 
             error_values = methods.get_difference(approximated_values, exact_values);
-            actual_value = get_max_value(error_values);
+            actual_value = get_sum_of_list(error_values);
             result[counter] = new DataPoint(i, actual_value);
 
             approximated_values.clear();
