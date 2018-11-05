@@ -38,21 +38,23 @@ class NumericalMethods {
      * @return real value of Gauss error function with accuracy of o(x^6)
      */
     private double erf(double z){
-        // n = 0
-        Double res = z * 2.0 / Math.sqrt(Math.PI);
-        // n = 1
-        res -= z*z*z* 2.0 / 3.0 / Math.sqrt(Math.PI);
-        // n = 2
-        res += z*z*z*z*z/5.0/Math.sqrt(Math.PI);
-
-        if(res.isNaN() || res.isInfinite()){
-            if(z <= -2.0) res = -1.0;
-            if(z > -2.0 && z < 0.0) res = -Math.sqrt(Math.abs(z)) / Math.sqrt(2.0);
-            if(z == .0) res = .0;
-            if(z > .0 && z < 2.0) res = Math.sqrt(Math.abs(z)) / Math.sqrt(2.0);
-            if(z >= 2.0) res = 1.0;
-        }
-        return res;
+        // Modified version of https://introcs.cs.princeton.edu/java/21function/ErrorFunction.java.html
+        double t = 1.0 / (1.0 + 0.5 * Math.abs(z));
+        double ans = 1 - t * Math.exp( -z*z   -   1.26551223 +
+                t * ( 1.00002368 +
+                        t * ( 0.37409196 +
+                                t * ( 0.09678418 +
+                                        t * (-0.18628806 +
+                                                t * ( 0.27886807 +
+                                                        t * (-1.13520398 +
+                                                                t * ( 1.48851587 +
+                                                                        t * (-0.82215223 +
+                                                                                t * ( 0.17087277))))))))));
+        if (z > 0.0){
+            return  ans;
+        } else if (z == 0.0) {
+            return 0.0;
+        } else return -ans;
     }
 
     /**  Four methods that return list of <x,y> values.
